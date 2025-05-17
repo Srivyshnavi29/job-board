@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Board</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Welcome to the Job Board</h1>
+    <p>Find your dream job here!</p>
+
+    <!-- Signup & Login Forms -->
+    <div id="auth-container">
+        <h2>Sign Up / Log In</h2>
+        <input type="text" id="username" placeholder="Enter your username">
+        <input type="password" id="password" placeholder="Enter your password">
+        <button onclick="signup()">Sign Up</button>
+        <button onclick="login()">Log In</button>
+    </div>
+
+    <!-- Display User Status -->
+    <p id="user-status">Not logged in</p>
+    <button id="logout-btn" onclick="logout()" style="display: none;">Log Out</button>
+
+    <!-- Job Posting Form -->
+    <div id="job-post-container">
+        <h2>Post a Job</h2>
+        <input type="text" id="job-title" placeholder="Job Title">
+        <input type="text" id="company-name" placeholder="Company Name">
+        <input type="text" id="job-location" placeholder="Location">
+        <select id="job-type">
+            <option value="">Select Job Type</option>
+            <option value="Full-Time">Full-Time</option>
+            <option value="Part-Time">Part-Time</option>
+            <option value="Freelance">Freelance</option>
+            <option value="Internship">Internship</option>
+        </select>
+        <input type="number" id="job-salary" placeholder="Salary">
+        <input type="number" id="job-experience" placeholder="Experience Required (years)">
+        <button onclick="postJob()">Post Job</button>
+    </div>
+
+    <!-- Search & Filters -->
+    <input type="text" id="search" placeholder="Search for a job..." onkeyup="filterJobs()">
+    
+    <select id="location-filter" onchange="filterJobs()">
+        <option value="">All Locations</option>
+    </select> <!-- Locations will be added dynamically -->
+    
+    <select id="job-type-filter" onchange="filterJobs()">
+        <option value="">All Job Types</option>
+    </select> <!-- Job types will be added dynamically -->
+
+    <select id="sort-filter" onchange="sortJobs()">
+        <option value="">Sort Jobs By</option>
+        <option value="salary-high">Highest Salary</option>
+        <option value="salary-low">Lowest Salary</option>
+        <option value="experience-high">Most Experienced</option>
+        <option value="experience-low">Least Experienced</option>
+        <option value="company">Company Name</option>
+    </select>
+
+    <!-- Job Listings Section -->
+    <section id="job-listings">
+        <h2>Available Jobs</h2>
+        <div id="jobs-container"></div> <!-- Jobs will be generated dynamically -->
+    </section>
+
+    <!-- JavaScript for Dynamic Features -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
