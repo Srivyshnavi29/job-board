@@ -11,7 +11,10 @@ const logoutBtn = document.getElementById("logout-btn");
 const searchInput = document.getElementById("search");
 const signupBtn = document.getElementById("signup-btn");
 const loginBtn = document.getElementById("login-btn");
+const postJobBtn = document.getElementById("post-job-btn"); // Get the "Post Job" button
 
+// ✅ Attach event listener to Post Job button
+postJobBtn.addEventListener("click", postJob);
 let loggedInUser = null; // Track current user
 
 // ✅ Attach event listeners
