@@ -15,13 +15,13 @@
         <h2>Sign Up / Log In</h2>
         <input type="text" id="username" placeholder="Enter your username">
         <input type="password" id="password" placeholder="Enter your password">
-        <button onclick="signup()">Sign Up</button>
-        <button onclick="login()">Log In</button>
+        <button id="signup-btn">Sign Up</button>
+        <button id="login-btn">Log In</button>
     </div>
 
     <!-- Display User Status -->
     <p id="user-status">Not logged in</p>
-    <button id="logout-btn" onclick="logout()" style="display: none;">Log Out</button>
+    <button id="logout-btn" style="display: none;">Log Out</button>
 
     <!-- Job Posting Form -->
     <div id="job-post-container">
@@ -38,21 +38,21 @@
         </select>
         <input type="number" id="job-salary" placeholder="Salary">
         <input type="number" id="job-experience" placeholder="Experience Required (years)">
-        <button onclick="postJob()">Post Job</button>
+        <button id="post-job-btn">Post Job</button>
     </div>
 
     <!-- Search & Filters -->
-    <input type="text" id="search" placeholder="Search for a job..." onkeyup="filterJobs()">
+    <input type="text" id="search" placeholder="Search for a job...">
     
-    <select id="location-filter" onchange="filterJobs()">
+    <select id="location-filter">
         <option value="">All Locations</option>
     </select> <!-- Locations will be added dynamically -->
     
-    <select id="job-type-filter" onchange="filterJobs()">
+    <select id="job-type-filter">
         <option value="">All Job Types</option>
     </select> <!-- Job types will be added dynamically -->
 
-    <select id="sort-filter" onchange="sortJobs()">
+    <select id="sort-filter">
         <option value="">Sort Jobs By</option>
         <option value="salary-high">Highest Salary</option>
         <option value="salary-low">Lowest Salary</option>
