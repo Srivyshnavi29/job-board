@@ -1,6 +1,6 @@
 import fetchJobs from "./jobs.js"; // Import fetchJobs function
 
-const API_URL = "http://localhost:5000/jobs"; // Change to live URL after deployment
+const API_URL = "https://your-backend.onrender.com/jobs"; // Change to live backend URL
 
 const jobsContainer = document.getElementById("jobs-container");
 const locationFilter = document.getElementById("location-filter");
@@ -14,8 +14,11 @@ const loginBtn = document.getElementById("login-btn");
 const postJobBtn = document.getElementById("post-job-btn"); // Get the "Post Job" button
 
 // ✅ Attach event listener to Post Job button
-postJobBtn.addEventListener("click", postJob);
-let loggedInUser = null; // Track current user
+if (postJobBtn) {
+    postJobBtn.addEventListener("click", postJob);
+} else {
+    console.error("❌ Post Job button not found!");
+}
 
 // ✅ Attach event listeners
 signupBtn.addEventListener("click", signup);
@@ -24,8 +27,7 @@ logoutBtn.addEventListener("click", logout);
 searchInput.addEventListener("input", filterJobs);
 sortFilter.addEventListener("change", sortJobs);
 
-// ✅ Load existing user from local storage
-loggedInUser = JSON.parse(localStorage.getItem("loggedInUser")) || null;
+let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser")) || null;
 updateUserStatus();
 
 // ✅ Populate dropdown filters dynamically
@@ -68,6 +70,39 @@ function displayJobs(jobs) {
     });
 
     populateFilters(jobs);
+}
+
+// ✅ Fix missing postJob() function
+async function postJob() {
+    const title = document.getElementById("job-title").value;
+    const company = document.getElementById("company-name").value;
+    const location = document.getElementById("job-location").value;
+    const type = document.getElementById("job-type").value;
+    const salary = document.getElementById("job-salary").value;
+    const experience = document.getElementById("job-experience").value;
+
+    if (!title || !company || !location || !type || !salary || !experience) {
+        alert("❌ Please fill in all fields!");
+        return;
+    }
+
+    const jobData = { title, company, location, type, salary, experience };
+
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(jobData),
+        });
+
+        if (!response.ok) throw new Error("❌ Failed to post job.");
+
+        alert("✅ Job posted successfully!");
+        fetchJobs(); // Refresh job listings
+    } catch (error) {
+        console.error(error);
+        alert("❌ Error posting job!");
+    }
 }
 
 // 🔎 Filter Jobs Based on Search & Dropdowns
@@ -119,7 +154,7 @@ function sortJobs() {
         });
 }
 
-// 🔐 Signup Function (Stores in Local Storage)
+// 🔐 Signup Function
 function signup() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
@@ -166,30 +201,6 @@ function updateUserStatus() {
         userStatus.innerText = "Not logged in";
         logoutBtn.style.display = "none";
     }
-}
-
-// 📝 Apply for a Job (Only Available to Logged-In Users)
-function applyJob(jobTitle) {
-    if (!loggedInUser) {
-        alert("❌ Please log in to apply for jobs.");
-        return;
-    }
-
-    alert(`✅ Application submitted for ${jobTitle}. Best of luck!`);
-}
-
-// ❌ Delete a Job (Only Available to Logged-In Users)
-function deleteJob(jobId) {
-    if (!loggedInUser) {
-        alert("❌ Please log in to manage job listings.");
-        return;
-    }
-
-    fetch(`${API_URL}/${jobId}`, { method: "DELETE" })
-        .then(() => {
-            fetchJobs(); // Refresh job listings
-            alert("✅ Job deleted successfully!");
-        });
 }
 
 // ✅ Fetch job listings on page load
