@@ -1,6 +1,6 @@
 import fetchJobs from "./jobs.js"; // Import fetchJobs function
 
-const API_URL = "https://job-board-4-sijk.onrender.com/jobs";
+const API_URL = "https://job-board-5-p20i.onrender.com/jobs";
 
 const jobsContainer = document.getElementById("jobs-container");
 const locationFilter = document.getElementById("location-filter");
